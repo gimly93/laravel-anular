@@ -1,0 +1,9 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Current Tasks
+  </div>
+
+  <div class="panel-body">
+    <app-task-item *ngFor="let task of tasks" [task]="task"></app-task-item>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<table class="table table-striped task-table">
+
+  <!-- Table Headings -->
+  <thead>
+  <th>Task</th>
+  <th>Description&nbsp;</th>
+  </thead>
+
+  <!-- Table Body -->
+  <tbody>
+
+  <tr>
+    <!-- Task Name -->
+    <td class="table-text" style='width: 20%'>
+      <div>{{task.title}}</div>
+    </td>
+    <!-- Task Name -->
+    <td class="table-text" style='width: 30%'>
+      <div>{{task.description}}</div>
+    </td>
+    <!-- Task Name -->
+    <td class="table-text" style='width: 20%'>
+      <div>{{task.userEmail}}</div>
+    </td>
+
+    <td style='width: 15%'>
+      <button type="button"  (click)="onUpdateTask()" class="btn btn-info">
+        <i class="fa fa-trash"></i> Update
+      </button>
+    </td>
+    <td style='width: 15%'>
+      <button type="button" (click)="delete()" class="btn btn-danger">
+        <i class="glyphicon-erase"></i> Delete
+      </button>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
