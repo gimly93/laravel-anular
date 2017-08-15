@@ -13,6 +13,9 @@ import {HttpModule} from "@angular/http";
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import {AuthService} from "./auth.service";
+import {UserService} from "./user.service";
+import { ChatComponent } from './chat/chat.component';
+import {ChatService} from "./chat/chat.service";
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import {AuthService} from "./auth.service";
     TaskListComponent,
     TaskItemComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,7 @@ import {AuthService} from "./auth.service";
     HttpModule,
 
   ],
-  providers: [TaskService, AuthService ],
+  providers: [TaskService, AuthService, UserService, ChatService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

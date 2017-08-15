@@ -21,8 +21,11 @@
         <!-- Left Side Of Navbar -->
         <ul class="nav navbar-nav">
           <li><a  routerLink="/task"> Task</a></li>
-          <li><a  routerLink="/signup"> Sign up</a></li>
-          <li><a  routerLink="/signin"> Sign in</a></li>
+          <li><a  routerLink="/chat"> Chat</a></li>
+
+          <li *ngIf="logout"><a  routerLink="/signup"> Sign up</a></li>
+          <li *ngIf="logout"><a  routerLink="/signin"> Sign in</a></li>
+          <li *ngIf="!logout"><a  routerLink="/tasks">{{user.email}}</a></li>
 
 
         </ul>
