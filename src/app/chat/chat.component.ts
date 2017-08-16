@@ -6,7 +6,6 @@ import {User} from "../user";
 @Component({
   selector: 'chat-component',
   templateUrl: './chat.component.html',
-  providers: [ChatService]
 })
 export class ChatComponent implements OnInit, OnDestroy {
   messages = [];
@@ -17,11 +16,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   logout: boolean = true;
   isTypingprop: boolean = false;
 
-  constructor(private chatService: ChatService,private userService: UserService) {}
+  constructor(private chatService: ChatService, private userService: UserService) {}
 
   sendMessage(){
     this.chatService.sendMessage(this.message, this.user);
   }
+
 
   isTyping(){
     this.chatService.isTyping(this.user);
@@ -37,11 +37,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
 
     this.connection = this.chatService.getMessages().subscribe( ({ data, time}) => {
-      console.log(data);
-      console.log(time);
       this.messages.push(data);
       // this.user.push(data.message);
     });
+
     this.connection = this.chatService.getTypingStatus().subscribe( data => {
       if ( this.user.email !== data ) {
         this.isTypingprop = true;

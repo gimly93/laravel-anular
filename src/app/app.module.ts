@@ -16,6 +16,7 @@ import {AuthService} from "./auth.service";
 import {UserService} from "./user.service";
 import { ChatComponent } from './chat/chat.component';
 import {ChatService} from "./chat/chat.service";
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {ChatService} from "./chat/chat.service";
     TaskItemComponent,
     SignupComponent,
     SigninComponent,
-    ChatComponent
+    ChatComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

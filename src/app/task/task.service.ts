@@ -58,7 +58,6 @@ export class TaskService {
     }
 
     AddTask(task: Task) {
-        console.log(task)
         this.TASKS.push(task);
         if(this.taskToUpdate)
             this.taskToUpdate = undefined;
