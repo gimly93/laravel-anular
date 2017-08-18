@@ -1,0 +1,56 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-comment"></span> Chat with
+            {{room.id}}
+    </div>
+    <div class="panel-body">
+        <ul class="chat" *ngIf="messages[0]" style="height: 400px" >
+            <p>{{messages[0].length}}</p>
+            <li *ngFor="let message of messages[0]" class="left clearfix">
+                <div *ngIf="message.from === user.id ">
+                              <span class="chat-img pull-left">
+  <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                    <div class="chat-body clearfix">
+                        <div class="header">
+                            <strong class="primary-font">{{message.to}}</strong> <small class="pull-right text-muted">
+                            <span class="glyphicon glyphicon-time"></span></small>
+                        </div>
+                        <p>
+                            {{message.message}}
+                        </p>
+                    </div>
+                </div>
+                <div
+                        *ngIf="message.from != user.id"
+                >
+                <span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                        </span>
+                    <div class="chat-body clearfix">
+                        <div class="header">
+                            <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>{{message.time}}</small>
+                            <strong class="pull-right primary-font">{{message.to}}</strong>
+                        </div>
+                        <p>
+                            {{message.message}}
+
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+    <div class="panel-footer">
+        <i *ngIf="isTypingprop">{{typingUser}} is typing now ...</i>
+        <div class="input-group">
+            <input id="btn-input" [(ngModel)]="message" type="text" (input)="isTyping()" class="form-control input-sm" placeholder="Type your message here..." />
+            <span class="input-group-btn">
+                            <button type="button"  (click)="sendMessage()" class="btn btn-warning btn-sm" id="btn-chat">
+                                Send</button>
+                        </span>
+        </div>
+    </div>
+</div>

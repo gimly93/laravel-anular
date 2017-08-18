@@ -3,11 +3,14 @@ import {Headers, Http, Response} from "@angular/http";
 
 import {Observable} from 'rxjs';
 import 'rxjs/Rx';
+import {UserService} from "./user.service";
+import {Subject} from "rxjs/Subject";
 @Injectable()
 export class AuthService{
 
 constructor(private http: Http){}
-
+    authenticatedUser;
+    token;
     signup(username: string, email: string, password: string) {
        return this.http.post('http://homestead.app/api/user',
             {name: username, email: email, password: password},
@@ -18,20 +21,14 @@ constructor(private http: Http){}
             {email: email, password: password},
             {headers: new Headers({'X-Requested-With': 'XMLHttpRequest'})})
            .map(
-               (response: Response) =>{
-                   const token = response.json().token;
-                   // const  base64Url = token.slit('.')[1];
-                   // const base64 = base64Url.replace('-','+').replace('_','/');
-                   return {token: token
-                       // , decoded: JSON.parse(window.atob(base64))
-                   };
-               }
-           ).do(
-               tokenData => {
-                   localStorage.setItem('token', tokenData.token);
+               (response: Response) => {
+                this.token = response.json().token;
+                   localStorage.setItem('token', this.token);
+                  return this.token;
                }
            );
     }
+
     getToken() {
         return localStorage.getItem('token');
     }

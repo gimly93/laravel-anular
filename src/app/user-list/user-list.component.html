@@ -5,55 +5,33 @@
 
   </div>
   <div class="panel-body">
-      <hr>
-      Online users
-      <hr>
-      <ul class="chat online">
-          <li *ngFor="let onlineUser of onlineUsers" class="left clearfix">
-              <div >
-                  <a  (click)="createRoom('test')">
+        <div *ngIf="onlineUsers">
+            <ul class="chat online">
+                <li *ngFor="let onlineUser of onlineUsers" class="left clearfix">
+                    <div  *ngIf="onlineUser.user.id!==user.id">
+                        <a  (click)="Room(onlineUser.user)">
                                           <span class="chat-img pull-left">
   <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
                         </span>
-                      <div class="chat-body clearfix">
-                          <div class="header">
-                              <strong class="primary-font">{{onlineUser.user.name}}</strong> <small class="pull-right text-muted">
-                              <span class="glyphicon glyphicon-time">{{onlineUser.user.email}}</span></small>
-                          </div>
-                      </div>
-                      <p><i>online</i></p>
-                  </a>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">{{onlineUser.user.name}}</strong> <small class="pull-right text-muted">
+                                    <span class="glyphicon glyphicon-time">{{onlineUser.user.email}}</span></small>
+                                </div>
+                            </div>
+                            <p><i>online</i></p>
+                        </a>
 
-              </div>
+                    </div>
 
-          </li>
+                </li>
 
 
-      </ul>
-      <hr>
-      All users
-      <hr>
-    <ul class="chat">
-      <li *ngFor="let user of users" class="left clearfix">
-        <div >
-          <a href="">
-                                          <span class="chat-img pull-left">
-  <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                        </span>
-            <div class="chat-body clearfix">
-              <div class="header">
-                <strong class="primary-font">{{user.name}}</strong> <small class="pull-right text-muted">
-                <span class="glyphicon glyphicon-time">{{user.email}}</span></small>
-              </div>
-            </div>
-          </a>
+            </ul>
 
         </div>
+      <div *ngIf="!onlineUsers"></div>
 
-      </li>
-
-
-    </ul>
   </div>
 
 </div>
