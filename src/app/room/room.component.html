@@ -1,19 +1,29 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <span class="glyphicon glyphicon-comment"></span> Chat with
-            {{room.id}}
+        <span class="glyphicon glyphicon-comment"></span>
+        <div *ngIf="user.id && listener1 && listener2 ">
+            <div *ngIf="listener1.id!==user.id">
+                Chat with
+                {{listener1.name}}  ({{listener1.email}})
+            </div>
+            <div *ngIf="listener2.id!==user.id">
+                Chat with
+                {{listener1.name}} ({{listener2.email}})
+            </div>
+        </div>
+
     </div>
     <div class="panel-body">
         <ul class="chat" *ngIf="messages[0]" style="height: 400px" >
             <p>{{messages[0].length}}</p>
-            <li *ngFor="let message of messages[0]" class="left clearfix">
+            <li *ngFor="let message of messages[0]"  class="left clearfix">
                 <div *ngIf="message.from === user.id ">
                               <span class="chat-img pull-left">
   <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
                         </span>
                     <div class="chat-body clearfix">
                         <div class="header">
-                            <strong class="primary-font">{{message.to}}</strong> <small class="pull-right text-muted">
+                            <strong class="primary-font">{{user.email}}</strong> <small class="pull-right text-muted">
                             <span class="glyphicon glyphicon-time"></span></small>
                         </div>
                         <p>

@@ -4,11 +4,10 @@
 <div class="container">
   <div class="row">
       <div class="col-md-4">
-          <app-user-list ></app-user-list>
+          <app-user-list (onRoomChange)="changeRoom($event)" ></app-user-list>
       </div>
     <div class="col-md-8" *ngIf="checkedRoom">
-        <p>{{room}}</p>
-        <app-room></app-room>
+        <app-room [changedRoom]="roomChanged"></app-room>
     </div>
   </div>
 </div>

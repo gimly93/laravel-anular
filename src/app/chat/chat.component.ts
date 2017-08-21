@@ -10,7 +10,8 @@ import {RoomService} from "../room.service";
 })
 export class ChatComponent {
 
-  checkedRoom: boolean= false;
+  checkedRoom;
+  roomChanged:User;
   room;
   user = JSON.parse(localStorage.getItem('currentUser')).user;
 
@@ -21,12 +22,13 @@ export class ChatComponent {
 
             this.checkedRoom = true;
           this.room = room;
-          console.log('OUR CURRENT ROOM');
-          console.log( room);
-          console.log( this.room);
+
 
         }
     );
   }
+    changeRoom(user){
+      this.roomChanged =user;
+    }
 
 }

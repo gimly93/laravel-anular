@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input, OnChanges} from '@angular/core';
 import {UserService} from "../user.service";
 import {User} from "../user";
 import {Http} from "@angular/http";
@@ -10,8 +10,11 @@ import {ChatService} from "../chat/chat.service";
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.css']
 })
-export class RoomComponent  implements OnInit, OnDestroy  {
+export class RoomComponent  implements OnInit, OnDestroy ,OnChanges {
+  @Input() changedRoom;
   room;
+  listener1;
+  listener2;
   messages = [];
   connection;
   message= '';
@@ -23,28 +26,30 @@ export class RoomComponent  implements OnInit, OnDestroy  {
   logout: boolean = true;
   isTypingprop: boolean = false;
   constructor(private http: Http, private roomService: RoomService, private chatService: ChatService, private userService: UserService) {}
-
-
-  ngOnInit() {
+  ngOnChanges(changes) {
+    this.getMessages();
+  }
+  getMessages(){
     this.roomService.getRoomMessages().subscribe( (data) => {
-      console.log(data);
       this.room = this.roomService.room;
+      this.listener1 = this.roomService.listener1;
+      this.listener2 = this.roomService.listener2;
+
       this.messages = [];
       this.messages.push(data);
 
 
     });
+  }
 
+  ngOnInit() {
 
     setInterval( () => {
       this.isTypingprop = false;
     }, 1000 * 5);
-
-
     this.connection = this.chatService.getMessages().subscribe( ({ data, time}) => {
+      data.as_read =0;
       this.messages[0].push(data);
-
-
 
     });
 
@@ -57,9 +62,23 @@ export class RoomComponent  implements OnInit, OnDestroy  {
   }
 
 
+  markAsRead(message){
+    // console.log(message);
+    // console.log(key);
+    // console.log( this.messages[key]);
+    // if(message.as_read == 0){
+    //   this.roomService.markAsRead(message).subscribe( (data) => {
+    //     // this.messages[key] = data;
+    //     // console.log( 'DATA from server',data);
+    //
+    //
+    //   });
+    // }
 
+  }
   sendMessage(){
     this.roomService.sendMessage(this.message, this.user).subscribe( (data) => {
+      this.message = '';
       // this.messages[0].push(data);
 
     });

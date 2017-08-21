@@ -23,7 +23,10 @@ export class ChatService {
         // this.socket.emit('add-message', message);
     }
     login(){
+        console.log('TRY TO LOGIN');
         let user = JSON.parse(localStorage.getItem('currentUser')).user;
+        console.log(user);
+
         this.socket.emit('login', {user: user});
 
     }

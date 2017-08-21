@@ -1,4 +1,4 @@
-import {Component,  OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {User} from "../user";
 import {UserService} from "../user.service";
 import {ChatService} from "../chat/chat.service";
@@ -10,12 +10,13 @@ import {Observable} from 'rxjs/Observable';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit ,OnDestroy{
-
+export class UserListComponent implements OnInit , OnDestroy {
+    @Output() onRoomChange = new EventEmitter<boolean>();
   users: User[];
   onlineUsers;
   connection ;
     user = JSON.parse(localStorage.getItem('currentUser')).user;
+    // user = this.userService.user;
 
   constructor(private roomService: RoomService, private userService: UserService, private chatService: ChatService){
   }
@@ -28,6 +29,7 @@ export class UserListComponent implements OnInit ,OnDestroy{
         data => {
           console.log(this.roomService.room);
           this.chatService.joinRoom(this.roomService.room.id);
+            this.onRoomChange.emit(user);
 
         },
     );
@@ -38,13 +40,13 @@ export class UserListComponent implements OnInit ,OnDestroy{
           this.onlineUsers = data;
       });
       this.onlineUsers = JSON.parse(localStorage.getItem('onlineUsers'));
-        console.log(this.onlineUsers);
-        console.log(this.user);
+        // console.log(this.onlineUsers);
+        // console.log(this.user);
 
 
   }
   ngOnDestroy(){
-      console.log('user list destroyed')
+      // console.log('user list destroyed')
       this.connection.unsubscribe();
 }
 

@@ -1,15 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, Response} from "@angular/http";
 
-import {Observable} from 'rxjs';
 import 'rxjs/Rx';
-import {UserService} from "./user.service";
-import {Subject} from "rxjs/Subject";
 @Injectable()
 export class AuthService{
 
 constructor(private http: Http){}
-    authenticatedUser;
     token;
     signup(username: string, email: string, password: string) {
        return this.http.post('http://homestead.app/api/user',
