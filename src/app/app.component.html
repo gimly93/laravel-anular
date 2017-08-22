@@ -12,8 +12,11 @@
         </button>
 
         <!-- Branding Image -->
-        <a class="navbar-brand" routerLink="/">
-          Laravel
+        <a *ngIf="!authService.loginStatus" class="navbar-brand" routerLink="/">
+          Chat
+        </a>
+        <a *ngIf="authService.loginStatus" class="navbar-brand" routerLink="/">
+          {{authService.user.email}}
         </a>
       </div>
 
@@ -23,9 +26,9 @@
           <!--<li><a  routerLink="/task"> Task</a></li>-->
           <li><a  routerLink="/chat"> Chat</a></li>
 
-          <li><a  routerLink="/login"> Login</a></li>
-          <li><a  routerLink="/register"> Sign up</a></li>
-          <li><a  (click)="logout()" >Logout</a></li>
+          <li *ngIf="!authService.loginStatus"><a  routerLink="/login"> Login</a></li>
+          <li *ngIf="!authService.loginStatus"><a  routerLink="/register"> Sign up</a></li>
+          <li *ngIf="authService.loginStatus"><a  (click)="logout()" >Logout</a></li>
 
 
         </ul>

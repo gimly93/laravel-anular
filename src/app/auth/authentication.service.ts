@@ -6,7 +6,16 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthenticationService {
     token;
-    constructor(private http: Http) { }
+    loginStatus:boolean=false;
+    user;
+    constructor(private http: Http) {
+       const user = JSON.parse(localStorage.getItem('currentUser'));
+
+        if(user){
+            this.user = user.user;
+            this.loginStatus =true;
+        }
+    }
 
     login(email: string, password: string) {
         return this.http.post('http://homestead.app/api/user/signin',
@@ -19,26 +28,18 @@ export class AuthenticationService {
                     if (user && user.token) {
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
                         localStorage.setItem('currentUser', JSON.stringify(user));
+                        this.loginStatus =true;
                     }
                     localStorage.setItem('token', response.json().token);
                     return user;
                 }
             );
     }
-    signin(email: string, password: string) {
-        return this.http.post('http://homestead.app/api/user/signin',
-            {email: email, password: password},
-            {headers: new Headers({'X-Requested-With': 'XMLHttpRequest'})})
-            .map(
-                (response: Response) => {
-                    this.token = response.json().token;
-                    localStorage.setItem('token', this.token);
-                    return this.token;
-                }
-            );
-    }
+
 
     logout() {
+        this.loginStatus = false;
+
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }

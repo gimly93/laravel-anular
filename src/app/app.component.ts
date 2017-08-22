@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {SocketService} from "./common/_services/socket.service";
+import {AuthenticationService} from "./auth/authentication.service";
 
 @Component({
     moduleId: module.id,
@@ -9,7 +10,7 @@ import {SocketService} from "./common/_services/socket.service";
 })
 
 export class AppComponent {
-    constructor(private router: Router,private socketService: SocketService) { }
+    constructor(public authService: AuthenticationService, private router: Router,private socketService: SocketService) { }
 
     logout(){
         const user = JSON.parse(localStorage.getItem('currentUser'));
