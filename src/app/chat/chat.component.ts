@@ -1,34 +1,32 @@
 import {Component, OnInit, OnDestroy, DoCheck} from '@angular/core';
-import { ChatService } from './chat.service';
-import {UserService} from "../user.service";
-import {User} from "../user";
-import {RoomService} from "../room.service";
+
+import {SocketService} from '../common/_services/socket.service';
+import {User} from './user-list/user';
+
 
 @Component({
-  selector: 'chat-component',
-  templateUrl: './chat.component.html',
+    selector: 'chat-component',
+    templateUrl: './chat.component.html',
 })
 export class ChatComponent {
 
-  checkedRoom;
-  roomChanged:User;
-  room;
-  user = JSON.parse(localStorage.getItem('currentUser')).user;
+    checkedRoom;
+    roomChanged: User;
+    room;
+    user = JSON.parse(localStorage.getItem('currentUser')).user;
 
-  constructor(private chatService: ChatService,private roomService: RoomService) {
-    this.chatService.subject.subscribe(
-        (room) => {
+    constructor(private socketService: SocketService) {
+        console.log('constructor Initialized');
+        this.socketService.subject.subscribe(
+            (room) => {
+                this.checkedRoom = true;
+                this.room = room;
+            }
+        );
+    }
 
-
-            this.checkedRoom = true;
-          this.room = room;
-
-
-        }
-    );
-  }
-    changeRoom(user){
-      this.roomChanged =user;
+    changeRoom(user) {
+        this.roomChanged = user;
     }
 
 }
