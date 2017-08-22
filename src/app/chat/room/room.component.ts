@@ -11,15 +11,12 @@ import {SocketService} from "../../common/_services/socket.service";
 export class RoomComponent  implements OnInit, OnDestroy ,OnChanges {
   @Input() changedRoom;
   room;
-  listener1;
-  listener2;
   messages = [];
   connection;
   message= '';
-  listener;
   user = JSON.parse(localStorage.getItem('currentUser')).user;
 
-  to_user
+  to_user;
   typingUser;
   logout: boolean = true;
   isTypingprop: boolean = false;
@@ -34,9 +31,12 @@ export class RoomComponent  implements OnInit, OnDestroy ,OnChanges {
   getMessages(){
     this.roomService.getRoomMessages().subscribe( (data) => {
       this.room = this.roomService.room;
-      this.listener1 = this.roomService.listener1;
-      this.listener2 = this.roomService.listener2;
-
+      if(this.roomService.listener1.id !==this.user.id){
+        this.to_user =this.roomService.listener1;
+      }
+      if(this.roomService.listener2.id !==this.user.id){
+        this.to_user = this.roomService.listener2;
+      }
       this.messages = [];
       this.messages.push(data);
 
@@ -77,6 +77,11 @@ export class RoomComponent  implements OnInit, OnDestroy ,OnChanges {
     //   });
     // }
 
+  }
+  OnCtrlEnter(event){
+    if (event.keyCode == 13 && event.ctrlKey) {
+      this.sendMessage();
+    }
   }
   sendMessage(){
     this.roomService.sendMessage(this.message, this.user).subscribe( (data) => {
